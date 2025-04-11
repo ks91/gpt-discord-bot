@@ -24,7 +24,7 @@ async def search_assistants(search: str = '', limit: int = MAX_ASSISTANT_LIST):
         assistants = await list_assistants(after=after)
         for assistant in assistants:
             if search in assistant.name \
-               or search in assistant.description \
+               or (assistant.description is not None and search in assistant.description) \
                or search in assistant.instructions:
                 found.append(assistant)
             if len(found) >= limit:
